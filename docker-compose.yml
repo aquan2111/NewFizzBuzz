@@ -1,0 +1,46 @@
+version: "3.8"
+
+services:
+  frontend:
+    build:
+      context: ./newfizzbuzz-frontend
+      dockerfile: Dockerfile
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+    networks:
+      - newfizzbuzz-net
+
+  backend:
+    build:
+      context: ./newfizzbuzz-backend
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+    environment:
+      - ConnectionStrings__DefaultConnection=Server=db;Database=NewFizzBuzzData;User=root;Password=rootpassword;
+    networks:
+      - newfizzbuzz-net
+
+  db:
+    image: mysql:8.0
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: NewFizzBuzzData
+    ports:
+      - "3307:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+    networks:
+      - newfizzbuzz-net
+
+volumes:
+  db_data:
+
+networks:
+  newfizzbuzz-net:
+    driver: bridge
