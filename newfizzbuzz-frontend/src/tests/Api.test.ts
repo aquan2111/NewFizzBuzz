@@ -9,7 +9,7 @@ jest.mock("axios", () => {
         ...mockAxios,
         create: jest.fn(() => ({
             defaults: {
-                baseURL: "https://localhost:8080/api",
+                baseURL: "http://localhost:8080/api",
                 headers: { "Content-Type": "application/json" },
             },
             interceptors: {
@@ -22,7 +22,7 @@ jest.mock("axios", () => {
 
 describe("Api service", () => {
     test("should have the correct base URL and headers", () => {
-        expect(Api.defaults.baseURL).toBe("https://localhost:8080/api");
+        expect(Api.defaults.baseURL).toBe("http://localhost:8080/api");
         expect(Api.defaults.headers["Content-Type"]).toBe("application/json");
     });
 

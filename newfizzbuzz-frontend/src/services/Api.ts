@@ -2,7 +2,7 @@ import axios from "axios";
 import type { InternalAxiosRequestConfig } from "axios"; // Import the correct type
 
 export const Api = axios.create({
-    baseURL: "https://localhost:8080/api", // Ensure this matches your backend URL
+    baseURL: "http://localhost:8080/api", // Ensure this matches your backend URL
     headers: {
         "Content-Type": "application/json",
     },

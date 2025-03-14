@@ -1,12 +1,11 @@
-version: "3.8"
-
 services:
   frontend:
     build:
       context: ./newfizzbuzz-frontend
       dockerfile: Dockerfile
+    container_name: frontend
     ports:
-      - "3000:80"
+      - "3000:3000"
     depends_on:
       - backend
     networks:
@@ -16,18 +15,20 @@ services:
     build:
       context: ./newfizzbuzz-backend
       dockerfile: Dockerfile
+    container_name: backend
     ports:
       - "8080:8080"
     depends_on:
       - db
     environment:
-      - ConnectionStrings__DefaultConnection=Server=db;Database=NewFizzBuzzData;User=root;Password=rootpassword;
+      - ConnectionStrings__DefaultConnection=Server=mysql_server;Database=NewFizzBuzzData;User=root;Password=rootpassword;
     networks:
       - newfizzbuzz-net
 
   db:
     image: mysql:8.0
     restart: always
+    container_name: mysql_server
     environment:
       MYSQL_ROOT_PASSWORD: rootpassword
       MYSQL_DATABASE: NewFizzBuzzData

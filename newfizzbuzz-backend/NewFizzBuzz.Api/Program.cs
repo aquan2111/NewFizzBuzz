@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using NewFizzBuzz.Api.Data;
 using NewFizzBuzz.Api.Services;
+using NewFizzBuzz.Api.Extensions;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -95,6 +96,7 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 app.UseSwagger();
 app.UseSwaggerUI();
+app.ApplyMigrations();
 
 app.UseCors("AllowSpecificOrigin");
 
